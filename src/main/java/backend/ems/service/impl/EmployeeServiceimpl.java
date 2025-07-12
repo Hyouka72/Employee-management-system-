@@ -19,4 +19,11 @@ public class EmployeeServiceimpl implements EmployeeService {
         Employee savedEmployee = employeeRepository.save(employee);
         return EmployeeMapper.maptoEmployeeDto(savedEmployee);
     }
+
+    @Override
+    public EmployeeDto getEmployeeById(long employeeId) {
+        employeeRepository.findById(employeeId)
+                .ifPresent(employee -> {})
+        return null;
+    }
 }
