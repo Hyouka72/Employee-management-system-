@@ -13,6 +13,8 @@ public interface EmployeeService {
 
         List<EmployeeDto> getAllEmployees();
 
+        EmployeeDto updateEmployee(long employeeId, EmployeeDto employeeDto);
+
 
 
 }
