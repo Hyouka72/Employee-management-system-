@@ -8,6 +8,10 @@ import backend.ems.service.EmployeeService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.lang.module.ResolutionException;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @AllArgsConstructor
 public class EmployeeServiceimpl implements EmployeeService {
@@ -22,8 +26,17 @@ public class EmployeeServiceimpl implements EmployeeService {
 
     @Override
     public EmployeeDto getEmployeeById(long employeeId) {
-        employeeRepository.findById(employeeId)
-                .ifPresent(employee -> {})
-        return null;
+        Employee employee = employeeRepository.findById(employeeId)
+                .orElseThrow(()-> new ResolutionException("Employee with id "+ employeeId+ " not found "));
+        return EmployeeMapper.maptoEmployeeDto(employee);
     }
+
+    @Override
+    public List<EmployeeDto> getAllEmployees() {
+        List<Employee> employees = employeeRepository.findAll();
+        return employees.stream().map((emp) -> EmployeeMapper.maptoEmployeeDto(emp))
+                .collect(Collectors.toList());
+    }
+
+
 }

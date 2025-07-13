@@ -23,8 +23,17 @@ public class EmployeeController {
         return new ResponseEntity<>(savedemployee, HttpStatus.CREATED);
     }
 
+    //Build Get Employee REST API
+    @GetMapping("{id}")
+    public ResponseEntity<EmployeeDto> getEmployeeId(@PathVariable("id") Long employeeId) {
+        EmployeeDto employeeDto = employeeService.getEmployeeById(employeeId);
+        return ResponseEntity.ok(employeeDto);
+    }
+
+    //Build Get All Employee REST API
     @GetMapping
     public ResponseEntity<List<EmployeeDto>> getAllEmployees() {
-        return ;
+        List <EmployeeDto> allEmployees = employeeService.getAllEmployees();
+        return ResponseEntity.ok(allEmployees);
     }
 }
